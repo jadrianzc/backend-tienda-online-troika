@@ -1,0 +1,11 @@
+{
+  "name": "backend-tienda-online-troika",
+  "version": "1.0.0",
+  "description": "Desarrollo de backend de tienda online para Troika Cía Ltda",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
