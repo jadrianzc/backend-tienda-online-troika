@@ -1,5 +1,5 @@
 /**
- * Punto inicial de la aplicación
+ * Punto inicial de la aplicación.
  */
 
 const server = require("./config/server");
