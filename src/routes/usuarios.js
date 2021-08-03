@@ -11,7 +11,6 @@ usuarios.get("/", async (req, res) => {
 
 // Enviar datos
 usuarios.post("/", async (req, res) => {
-  //const options = { dateStyle: "full", timeStyle: "long" };
   const f_creacion_usuario = new Date().toLocaleString("es-EC");
   const {
     nomb_usuario,
