@@ -11,6 +11,8 @@ usuarios.get("/", async (req, res) => {
 
 // Enviar datos
 usuarios.post("/", async (req, res) => {
+  //const options = { dateStyle: "full", timeStyle: "long" };
+  const f_creacion_usuario = new Date().toLocaleString("es-EC");
   const {
     nomb_usuario,
     apell_usuario,
@@ -20,7 +22,6 @@ usuarios.post("/", async (req, res) => {
     email_usuario,
     contraseña_usuario,
     conf_contraseña,
-    f_creacion_usuario,
     rol_usuario,
   } = req.body;
   const documento = new modelo({
