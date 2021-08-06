@@ -2,7 +2,7 @@ const express = require("express");
 const productos = express.Router();
 const modelo = require("../models/ModeloProductos"); //obtener modelo
 
-/*EJEMPLO*/ 
+/*EJEMPLO*/
 
 // Recibir datos
 productos.get("/", async (req, res) => {
@@ -18,34 +18,36 @@ productos.get("/:id", async (req, res) => {
   //console.log(documentos);
   res.json(documentos);
 });
-
+*/
 // Enviar datos
 productos.post("/", async (req, res) => {
+  const f_registro_producto = new Date().toLocaleString("es-EC");
   const {
     imgurl,
-    imgurl2,
-    titulo,
-    precio,
-    talla,
-    cantidad,
-    tipo,
-    masvendido,
+    codigo_producto,
+    nom_producto,
+    descrip_producto,
+    categoria_producto,
+    precio_producto,
+    marca_producto,
+    cantidad_producto,
   } = req.body;
   const documento = new modelo({
     imgurl,
-    imgurl2,
-    titulo,
-    precio,
-    talla,
-    cantidad,
-    tipo,
-    masvendido,
+    codigo_producto,
+    nom_producto,
+    descrip_producto,
+    categoria_producto,
+    precio_producto,
+    marca_producto,
+    cantidad_producto,
+    f_registro_producto,
   });
   await documento.save();
 
   res.json({ status: "Guardado" });
 });
-
+/*
 // Actualizar datos
 productos.put("/:id", async (req, res) => {
   const {

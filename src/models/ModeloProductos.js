@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-/*EJEMPLO*/ 
-const TaskShema = new Schema({
+/*EJEMPLO*/
+const ProductosShema = new Schema({
   imgurl: { type: Array, required: true },
-  titulo: { type: String, required: true },
-  precio: { type: Number, required: true },
-  talla: { type: Array, required: true },
-  cantidad: { type: Number, required: true },
-  tipo: { type: String, required: true },
-  masvendido: { type: Boolean, required: false },
+  codigo_producto: { type: String, required: true },
+  nom_producto: { type: String, required: true },
+  descrip_producto: { type: String, required: true },
+  categoria_producto: { type: String, required: true },
+  precio_producto: { type: Number, required: true },
+  marca_producto: { type: String, required: true },
+  cantidad_producto: { type: Number, required: true },
+  f_registro_producto: { type: String, required: false },
 });
 
-module.exports = mongoose.model("Task", TaskShema);
+module.exports = mongoose.model("productos", ProductosShema);
