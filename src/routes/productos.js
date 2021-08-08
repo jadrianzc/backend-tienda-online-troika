@@ -10,7 +10,7 @@ productos.get("/", async (req, res) => {
   //console.log(documentos);
   res.json(documentos);
 });
-/*
+
 // Recibir datos por id
 
 productos.get("/:id", async (req, res) => {
@@ -18,7 +18,7 @@ productos.get("/:id", async (req, res) => {
   //console.log(documentos);
   res.json(documentos);
 });
-*/
+
 // Enviar datos
 productos.post("/", async (req, res) => {
   const f_registro_producto = new Date().toLocaleString("es-EC");
