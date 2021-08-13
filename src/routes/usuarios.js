@@ -45,4 +45,35 @@ usuarios.post("/", async (req, res) => {
   res.json({ status: "Guardado" });
 });
 
+// Actualizar datos
+usuarios.put("/:id", async (req, res) => {
+  const f_creacion_usuario = new Date().toLocaleString("es-EC");
+  const {
+    nomb_usuario,
+    apell_usuario,
+    ced_usuario,
+    telf_usuario,
+    cel_usuario,
+    email_usuario,
+    contraseña_usuario,
+    conf_contraseña,
+    rol_usuario,
+  } = req.body;
+  const newdocumento = {
+    nomb_usuario,
+    apell_usuario,
+    ced_usuario,
+    telf_usuario,
+    cel_usuario,
+    email_usuario,
+    contraseña_usuario,
+    conf_contraseña,
+    f_creacion_usuario,
+    rol_usuario,
+  };
+  await modelo.findByIdAndUpdate(req.params.id, newdocumento);
+
+  res.json({ status: "Actualizado" });
+});
+
 module.exports = usuarios;
