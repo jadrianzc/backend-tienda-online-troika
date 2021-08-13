@@ -8,6 +8,11 @@ usuarios.get("/", async (req, res) => {
   //console.log(documentos);
   res.json(documentos);
 });
+usuarios.get("/:id", async (req, res) => {
+  const documentos = await modelo.findById(req.params.id);
+  //console.log(documentos);
+  res.json(documentos);
+});
 
 // Enviar datos
 usuarios.post("/", async (req, res) => {
