@@ -29,9 +29,11 @@ productos.post("/", async (req, res) => {
     descrip_producto,
     categoria_producto,
     precio_producto,
-    marca_producto,
+    marca_auto,
+    modelo_auto,
     modelo_producto,
     cantidad_producto,
+    mas_vendidos,
   } = req.body;
   const documento = new modelo({
     imgurl,
@@ -40,9 +42,11 @@ productos.post("/", async (req, res) => {
     descrip_producto,
     categoria_producto,
     precio_producto,
-    marca_producto,
+    marca_auto,
+    modelo_auto,
     modelo_producto,
     cantidad_producto,
+    mas_vendidos,
     f_registro_producto,
   });
   await documento.save();

@@ -8,9 +8,11 @@ const ProductosShema = new Schema({
   descrip_producto: { type: String, required: true },
   categoria_producto: { type: String, required: true },
   precio_producto: { type: Number, required: true },
-  marca_producto: { type: String, required: false },
+  marca_auto: { type: String, required: false },
+  modelo_auto: { type: String, required: false },
   modelo_producto: { type: String, required: true },
   cantidad_producto: { type: Number, required: true },
+  mas_vendidos: { type: Boolean, required: false },
   f_registro_producto: { type: String, required: false },
 });
 
