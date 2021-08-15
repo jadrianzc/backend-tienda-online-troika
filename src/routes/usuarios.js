@@ -17,6 +17,8 @@ usuarios.get("/:id", async (req, res) => {
 // Enviar datos
 usuarios.post("/", async (req, res) => {
   const f_creacion_usuario = new Date().toLocaleString("es-EC");
+  const imgurl =
+    "https://s.gravatar.com/avatar/6986e2464522d9b7d63ecdf6c208998a";
   const {
     nomb_usuario,
     apell_usuario,
@@ -29,6 +31,7 @@ usuarios.post("/", async (req, res) => {
     rol_usuario,
   } = req.body;
   const documento = new modelo({
+    imgurl,
     nomb_usuario,
     apell_usuario,
     ced_usuario,
@@ -47,8 +50,8 @@ usuarios.post("/", async (req, res) => {
 
 // Actualizar datos
 usuarios.put("/:id", async (req, res) => {
-  const f_creacion_usuario = new Date().toLocaleString("es-EC");
   const {
+    imgurl,
     nomb_usuario,
     apell_usuario,
     ced_usuario,
@@ -60,6 +63,7 @@ usuarios.put("/:id", async (req, res) => {
     rol_usuario,
   } = req.body;
   const newdocumento = {
+    imgurl,
     nomb_usuario,
     apell_usuario,
     ced_usuario,
@@ -68,12 +72,18 @@ usuarios.put("/:id", async (req, res) => {
     email_usuario,
     contraseña_usuario,
     conf_contraseña,
-    f_creacion_usuario,
     rol_usuario,
   };
   await modelo.findByIdAndUpdate(req.params.id, newdocumento);
 
   res.json({ status: "Actualizado" });
+});
+
+// Eliminar datos
+usuarios.delete("/:id", async (req, res) => {
+  await modelo.findByIdAndRemove(req.params.id);
+
+  res.json({ status: "Eliminado" });
 });
 
 module.exports = usuarios;
