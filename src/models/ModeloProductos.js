@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 /*EJEMPLO*/
 const ProductosShema = new Schema({
-  imgurl: { type: Array, required: true },
+  imgurl: { type: String, required: true },
   codigo_producto: { type: String, required: true },
   nom_producto: { type: String, required: true },
   descrip_producto: { type: String, required: true },
