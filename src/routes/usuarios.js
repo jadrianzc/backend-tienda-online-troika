@@ -20,7 +20,7 @@ usuarios.get("/:id", async (req, res) => {
 usuarios.post("/", async (req, res) => {
   const f_creacion_usuario = new Date().toLocaleString("es-EC");
   const imgurl =
-    "https://s.gravatar.com/avatar/6986e2464522d9b7d63ecdf6c208998a";
+    "https://res.cloudinary.com/troikafoto/image/upload/v1629124545/User/5-08_p4m8t8.jpg";
   const {
     nomb_usuario,
     apell_usuario,
