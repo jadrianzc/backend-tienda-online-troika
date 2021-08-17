@@ -5,6 +5,7 @@ const usuarios = require("./usuarios");
 const FiltraProductCatego = require("./filtra-product-categoria");
 const buscaProducto = require("./buscaProducto");
 const verificaUsuario = require("./verificaUsuario");
+const filtramodeloauto = require("./filtra-modelo-auto");
 //const cloudinaryRouter = require("./cloudinary");
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.use("/categorias", categorias);
 router.use("/usuarios", usuarios);
 // router.use("/usuarios", usuarios);
 router.use("/FiltraProductCatego", FiltraProductCatego);
+router.use("/filtramodeloauto", filtramodeloauto);
 router.use("/buscaProducto", buscaProducto);
 router.use("/verificaUsuario", verificaUsuario);
 

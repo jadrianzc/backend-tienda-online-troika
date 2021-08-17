@@ -80,12 +80,18 @@ productos.put("/:id", async (req, res) => {
 
   res.json({ status: "Actualizado" });
 });
-
+*/
 // Eliminar datos
 productos.delete("/:id", async (req, res) => {
   await modelo.findByIdAndRemove(req.params.id);
 
   res.json({ status: "Eliminado" });
 });
-*/
+//ElIMIR TODO LOS DATO PELIGO PELIGRO AAAAAAAAA
+productos.delete("/", async (req, res) => {
+  await modelo.remove({});
+
+  res.json({ status: "Eliminado" });
+});
+
 module.exports = productos;
