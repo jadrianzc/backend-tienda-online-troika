@@ -10,7 +10,7 @@ const UsersShema = new Schema({
   cel_usuario: { type: String, required: false },
   email_usuario: { type: String, required: true },
   contraseña_usuario: { type: String, required: true },
-  conf_contraseña: { type: String, required: true },
+  conf_contraseña: { type: String, required: false },
   f_creacion_usuario: { type: String, required: false },
   rol_usuario: { type: String, required: true },
 });
