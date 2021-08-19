@@ -53,34 +53,40 @@ productos.post("/", async (req, res) => {
 
   res.json({ status: "Guardado" });
 });
-/*
+
 // Actualizar datos
 productos.put("/:id", async (req, res) => {
   const {
     imgurl,
-    imgurl2,
-    titulo,
-    precio,
-    talla,
-    cantidad,
-    tipo,
-    masvendido,
+    codigo_producto,
+    nom_producto,
+    descrip_producto,
+    categoria_producto,
+    precio_producto,
+    marca_auto,
+    modelo_auto,
+    modelo_producto,
+    cantidad_producto,
+    mas_vendidos,
   } = req.body;
   const newdocumento = {
     imgurl,
-    imgurl2,
-    titulo,
-    precio,
-    talla,
-    cantidad,
-    tipo,
-    masvendido,
+    codigo_producto,
+    nom_producto,
+    descrip_producto,
+    categoria_producto,
+    precio_producto,
+    marca_auto,
+    modelo_auto,
+    modelo_producto,
+    cantidad_producto,
+    mas_vendidos,
   };
   await modelo.findByIdAndUpdate(req.params.id, newdocumento);
 
   res.json({ status: "Actualizado" });
 });
-*/
+
 // Eliminar datos
 productos.delete("/:id", async (req, res) => {
   await modelo.findByIdAndRemove(req.params.id);
