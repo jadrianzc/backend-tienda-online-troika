@@ -40,4 +40,11 @@ categorias.put("/:id", async (req, res) => {
   res.json({ status: "Actualizado" });
 });
 
+// Eliminar datos
+categorias.delete("/:id", async (req, res) => {
+  await modelo.findByIdAndRemove(req.params.id);
+
+  res.json({ status: "Eliminado" });
+});
+
 module.exports = categorias;
