@@ -80,6 +80,13 @@ usuarios.put('/:id', async (req, res) => {
 	res.json({ status: 'Actualizado' });
 });
 
+// Eliminar datos
+usuarios.delete('/:id', async (req, res) => {
+	await modelo.findByIdAndRemove(req.params.id);
+
+	res.json({ status: 'Eliminado' });
+});
+
 // Carrito de compras del usuario
 usuarios.get('/:id/carrito-compra', async (req, res) => {
 	const documentos = await modeloProducto.find();
@@ -130,7 +137,6 @@ usuarios.post('/:id/carrito-compra', async (req, res) => {
 
 // Actualizar datos
 usuarios.put('/:id/carrito-compra', async (req, res) => {
-	console.log('put: ', req.body);
 	const {
 		imgurl,
 		idProd,
@@ -157,7 +163,7 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 		modelo_producto,
 		idUserSession,
 	};
-	console.log('put: ', newdocumento);
+
 	await modeloProducto.findByIdAndUpdate(req.body._id, newdocumento);
 
 	res.json({ status: 'Actualizado' });
@@ -166,13 +172,6 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 // Eliminar datos
 usuarios.delete('/:id/carrito-compra', async (req, res) => {
 	await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
-	res.json({ status: 'Eliminado' });
-});
-
-// Eliminar datos
-usuarios.delete('/:id', async (req, res) => {
-	await modelo.findByIdAndRemove(req.params.id);
-
 	res.json({ status: 'Eliminado' });
 });
 
@@ -262,10 +261,16 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
         `;
 
 		const smtpTransport = nodemailer.createTransport({
-			service: 'Gmail',
+			name: 'www.grupotroika.com',
+			host: 'mail.grupotroika.com',
+			port: 587,
+			secure: false,
 			auth: {
-				user: 'grupotroika.tiendaonline@gmail.com',
-				pass: 'troika123',
+				user: 'orden@grupotroika.com',
+				pass: 'Sankey01!',
+			},
+			tls: {
+				rejectUnauthorized: false,
 			},
 		});
 
