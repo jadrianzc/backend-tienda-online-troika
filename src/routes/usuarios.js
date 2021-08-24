@@ -98,15 +98,12 @@ usuarios.delete('/:id', async (req, res) => {
 // Obtener datos
 usuarios.get('/:id/carrito-compra', async (req, res) => {
 	const documentos = await modeloProducto.find();
-	//console.log(documentos);
 	res.json(documentos);
 });
 
 // Agregar los datos
 usuarios.post('/:id/carrito-compra', async (req, res) => {
 	try {
-		console.log('post: ', req.body);
-
 		const {
 			imgurl,
 			_id,
@@ -119,6 +116,7 @@ usuarios.post('/:id/carrito-compra', async (req, res) => {
 			f_registro_producto,
 			modelo_producto,
 			idUserSession,
+			estado,
 		} = req.body;
 		const documento = new modeloProducto({
 			imgurl,
@@ -132,8 +130,9 @@ usuarios.post('/:id/carrito-compra', async (req, res) => {
 			f_registro_producto,
 			modelo_producto,
 			idUserSession,
+			estado,
 		});
-		console.log('post: ', documento);
+
 		await documento.save();
 
 		res.json({ status: 'Guardado' });
