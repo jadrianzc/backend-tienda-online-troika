@@ -277,14 +277,16 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 						<th style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">Cantidad</th>
 						<th style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">Precio</th>
 					</tr>
-					${carrito_usuario.map(
-						(data) =>
-							`<tr>
+					${carrito_usuario
+						.map(
+							(data) =>
+								`<tr>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.descrip_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.cantidad_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.precio_producto}</td>
 							</tr>`
-					)}
+						)
+						.join('')}
 				</tbody>
 			</table>
 
