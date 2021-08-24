@@ -5,7 +5,11 @@ const modeloProducto = require('../models/ModeloProductoCar'); //obtener modelo
 const modeloOrdenCompra = require('../models/ModeloOrdenCompra');
 const nodemailer = require('nodemailer');
 
-//Obtener datos
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////// USUARIO ///////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Obetener datos
 usuarios.get('/', async (req, res) => {
 	const documentos = await modelo.find();
 	//console.log(documentos);
@@ -87,14 +91,18 @@ usuarios.delete('/:id', async (req, res) => {
 	res.json({ status: 'Eliminado' });
 });
 
-// Carrito de compras del usuario
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////// CARRITO DE COMPRAS DE USUARIOS ///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Obtener datos
 usuarios.get('/:id/carrito-compra', async (req, res) => {
 	const documentos = await modeloProducto.find();
-	// await modeloProducto.deleteMany({ categoria_producto: 'Filtros' });
 	//console.log(documentos);
 	res.json(documentos);
 });
 
+// Agregar los datos
 usuarios.post('/:id/carrito-compra', async (req, res) => {
 	try {
 		console.log('post: ', req.body);
@@ -175,10 +183,20 @@ usuarios.delete('/:id/carrito-compra', async (req, res) => {
 	res.json({ status: 'Eliminado' });
 });
 
-// Orden de compra del usuario
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////// ORDEN DE COMPRA DEL USUARIO ////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Obtener datos
 usuarios.get('/:id/orden-compra', async (req, res) => {
 	const documentos = await modeloOrdenCompra.find();
 	res.json(documentos);
+});
+
+usuarios.delete('/:id/orden-compra', async (req, res) => {
+	await modeloOrdenCompra.remove({});
+
+	res.json({ status: 'Eliminado' });
 });
 
 // Guarda las ordenes de compras y envía correo
@@ -200,6 +218,12 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 			cel_usuario,
 			carrito_usuario,
 		} = req.body;
+
+		await carrito_usuario.map((data) => {
+			const op = parseFloat(data.cantidad_producto * data.precio_producto);
+			total = total + op;
+		});
+
 		const documento = new modeloOrdenCompra({
 			idUserSession,
 			ced_usuario,
@@ -213,6 +237,8 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 			pais_usuario,
 			cel_usuario,
 			carrito_usuario,
+			total_carrito: total,
+			estado: false,
 			f_creacion_ordenCompra,
 		});
 
@@ -254,10 +280,7 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 				</tbody>
 			</table>
 
-			<h3>Total a pagar:${carrito_usuario.map((data) => {
-				const op = parseFloat(data.cantidad_producto * data.precio_producto);
-				total = total + op;
-			})} ${total}</h3>
+			<h3>Total a pagar: ${total}</h3>
         `;
 
 		const smtpTransport = nodemailer.createTransport({
