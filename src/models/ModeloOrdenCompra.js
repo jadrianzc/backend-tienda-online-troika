@@ -15,7 +15,7 @@ const OrdenCompra = new Schema({
 	cel_usuario: { type: String, required: true },
 	carrito_usuario: { type: Array, required: true },
 	total_carrito: { type: String, required: true },
-	estado: { type: Boolean, required: true },
+	estado: { type: String, required: true },
 	f_creacion_ordenCompra: { type: String, required: false },
 });
 

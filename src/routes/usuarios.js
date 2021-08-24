@@ -237,7 +237,7 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 			cel_usuario,
 			carrito_usuario,
 			total_carrito: total,
-			estado: false,
+			estado: 'pendiente',
 			f_creacion_ordenCompra,
 		});
 
@@ -283,13 +283,16 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
         `;
 
 		const smtpTransport = nodemailer.createTransport({
-			name: 'www.grupotroika.com',
-			host: 'mail.grupotroika.com',
-			port: 587,
+			service: 'Gmail',
+			// name: 'www.grupotroika.com',
+			// host: 'mail.grupotroika.com',
+			// port: 587,
 			secure: false,
 			auth: {
-				user: 'orden@grupotroika.com',
-				pass: 'Sankey01!',
+				// user: 'orden@grupotroika.com',
+				// pass: 'Sankey01!',
+				user: 'grupotroika.tiendaonline@gmail.com',
+				pass: 'troika123',
 			},
 			tls: {
 				rejectUnauthorized: false,
