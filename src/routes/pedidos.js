@@ -11,4 +11,22 @@ pedidos.get("/", async (req, res) => {
   res.json(documentos);
 });
 
+pedidos.get("/:estado", async (req, res) => {
+  const { estado } = req.params;
+  const documentos = await modelo.find({
+    estado: new RegExp("^" + estado + "$", "i"),
+  });
+  //console.log(documentos);
+  res.json(documentos);
+});
+
+pedidos.put("/:id", async (req, res) => {
+  const { estado } = req.body;
+  const newdocumento = {
+    estado,
+  };
+  await modelo.findByIdAndUpdate(req.params.id, newdocumento);
+  res.json({ status: "Actualizado" });
+});
+
 module.exports = pedidos;
