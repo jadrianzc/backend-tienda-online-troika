@@ -156,7 +156,9 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 		f_registro_producto,
 		modelo_producto,
 		idUserSession,
+		estado,
 	} = req.body;
+	console.log('PUT CARRITO', req.body);
 	const newdocumento = {
 		imgurl,
 		idProd,
@@ -169,6 +171,7 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 		f_registro_producto,
 		modelo_producto,
 		idUserSession,
+		estado,
 	};
 
 	await modeloProducto.findByIdAndUpdate(req.body._id, newdocumento);
@@ -176,11 +179,17 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 	res.json({ status: 'Actualizado' });
 });
 
-// Eliminar datos
+// Eliminar datos por id
 usuarios.delete('/:id/carrito-compra', async (req, res) => {
 	await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
 	res.json({ status: 'Eliminado' });
 });
+
+// usuarios.delete('/:id/carrito-compra', async (req, res) => {
+// 	await modeloProducto.remove({});
+
+// 	res.json({ status: 'Eliminado' });
+// });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////// ORDEN DE COMPRA DEL USUARIO ////////////////////////////////////////////////////
