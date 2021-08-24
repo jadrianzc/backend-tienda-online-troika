@@ -1,7 +1,10 @@
 const express = require("express");
+
 const productos = require("./productos");
 const categorias = require("./categorias");
 const usuarios = require("./usuarios");
+const pedidos = require("./pedidos");
+
 const FiltraProductCatego = require("./filtra-product-categoria");
 const buscaProducto = require("./buscaProducto");
 const verificaUsuario = require("./verificaUsuario");
@@ -24,6 +27,7 @@ router.get("/", (req, res) => {
 router.use("/productos", productos);
 router.use("/categorias", categorias);
 router.use("/usuarios", usuarios);
+router.use("/pedidos", pedidos);
 // router.use("/usuarios", usuarios);
 router.use("/FiltraProductCatego", FiltraProductCatego);
 router.use("/filtramodeloauto", filtramodeloauto);
