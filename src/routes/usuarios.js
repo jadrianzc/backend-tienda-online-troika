@@ -237,7 +237,7 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 			cel_usuario,
 			carrito_usuario,
 			total_carrito: total,
-			estado: false,
+			estado: 'pendiente',
 			f_creacion_ordenCompra,
 		});
 
