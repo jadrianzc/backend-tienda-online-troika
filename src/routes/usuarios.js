@@ -158,7 +158,7 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 		idUserSession,
 		estado,
 	} = req.body;
-	console.log('PUT CARRITO', req.body);
+
 	const newdocumento = {
 		imgurl,
 		idProd,
@@ -283,27 +283,24 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 								`<tr>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.descrip_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.cantidad_producto}</td>
-								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.precio_producto}</td>
+								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">$ ${data.precio_producto}</td>
 							</tr>`
 						)
 						.join('')}
 				</tbody>
 			</table>
 
-			<h3>Total a pagar: ${total}</h3>
+			<h3>Total a pagar: $ ${total}</h3>
         `;
 
 		const smtpTransport = nodemailer.createTransport({
-			service: 'Gmail',
-			// name: 'www.grupotroika.com',
-			// host: 'mail.grupotroika.com',
-			// port: 587,
-			secure: false,
+			name: 'www.grupotroika.com',
+			host: 'box5176.bluehost.com',
+			port: 465,
+			secure: true,
 			auth: {
-				// user: 'orden@grupotroika.com',
-				// pass: 'Sankey01!',
-				user: 'grupotroika.tiendaonline@gmail.com',
-				pass: 'troika123',
+				user: 'orden@grupotroika.com',
+				pass: 'Sankey01!',
 			},
 			tls: {
 				rejectUnauthorized: false,
