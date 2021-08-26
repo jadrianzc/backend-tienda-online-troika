@@ -294,16 +294,10 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
         `;
 
 		const smtpTransport = nodemailer.createTransport({
-			name: 'www.grupotroika.com',
-			host: 'box5176.bluehost.com',
-			port: 465,
-			secure: true,
+			service: 'Gmail',
 			auth: {
-				user: 'orden@grupotroika.com',
-				pass: 'Sankey01!',
-			},
-			tls: {
-				rejectUnauthorized: false,
+				user: 'grupotroika.tiendaonline@gmail.com',
+				pass: 'troika123',
 			},
 		});
 
