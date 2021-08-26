@@ -229,7 +229,7 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 
 		await carrito_usuario.map((data) => {
 			const op = parseFloat(data.cantidad_producto * data.precio_producto);
-			total = total + op;
+			total = (total + op).toFixed(2);
 		});
 
 		const documento = new modeloOrdenCompra({
@@ -296,8 +296,8 @@ usuarios.post('/:id/orden-compra', async (req, res) => {
 		const smtpTransport = nodemailer.createTransport({
 			service: 'Gmail',
 			auth: {
-				user: 'grupotroika.tiendaonline@gmail.com',
-				pass: 'troika123',
+				user: process.env.EMAIL_USER,
+				pass: process.env.PASS_EMAIL,
 			},
 		});
 
