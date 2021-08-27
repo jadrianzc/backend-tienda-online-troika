@@ -194,15 +194,15 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 });
 
 // Eliminar datos por id
-// usuarios.delete("/:id/carrito-compra", async (req, res) => {
-//   await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
-//   res.json({ status: "Eliminado" });
-// });
-
 usuarios.delete('/:id/carrito-compra', async (req, res) => {
-	await modeloProducto.remove({});
+	await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
 	res.json({ status: 'Eliminado' });
 });
+
+// usuarios.delete('/:id/carrito-compra', async (req, res) => {
+// 	await modeloProducto.remove({});
+// 	res.json({ status: 'Eliminado' });
+// });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////// ORDEN DE COMPRA DEL USUARIO ////////////////////////////////////////////////////
