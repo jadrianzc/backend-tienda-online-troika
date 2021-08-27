@@ -201,7 +201,6 @@ usuarios.put('/:id/carrito-compra', async (req, res) => {
 
 usuarios.delete('/:id/carrito-compra', async (req, res) => {
 	await modeloProducto.remove({});
-
 	res.json({ status: 'Eliminado' });
 });
 
