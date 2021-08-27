@@ -21,7 +21,21 @@ productos.get("/:id", async (req, res) => {
 
 // Enviar datos
 productos.post("/", async (req, res) => {
-  const f_registro_producto = new Date().toLocaleString("es-EC");
+  // const f_registro_producto = new Date().toLocaleString("es-EC");
+  const date = new Date();
+
+  let f_creacion_ordenCompra =
+    date.getFullYear() +
+    "-" +
+    (date.getMonth() + 1) +
+    "-" +
+    date.getDate() +
+    " " +
+    date.getHours() +
+    ":" +
+    date.getMinutes() +
+    ":" +
+    date.getSeconds();
   const {
     imgurl,
     codigo_producto,

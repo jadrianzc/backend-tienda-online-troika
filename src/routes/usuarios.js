@@ -23,6 +23,7 @@ usuarios.get('/:id', async (req, res) => {
 });
 
 // Enviar datos
+<<<<<<< HEAD
 usuarios.post('/', async (req, res) => {
 	const f_creacion_usuario = new Date().toLocaleString('es-EC');
 	const imgurl = 'https://res.cloudinary.com/troikafoto/image/upload/v1629124545/User/5-08_p4m8t8.jpg';
@@ -53,6 +54,53 @@ usuarios.post('/', async (req, res) => {
 	await documento.save();
 
 	res.json({ status: 'Guardado' });
+=======
+usuarios.post("/", async (req, res) => {
+  //   const f_creacion_usuario = new Date().toLocaleString("es-EC");
+  const date = new Date();
+
+  let f_creacion_ordenCompra =
+    date.getFullYear() +
+    "-" +
+    (date.getMonth() + 1) +
+    "-" +
+    date.getDate() +
+    " " +
+    date.getHours() +
+    ":" +
+    date.getMinutes() +
+    ":" +
+    date.getSeconds();
+  const imgurl =
+    "https://res.cloudinary.com/troikafoto/image/upload/v1629124545/User/5-08_p4m8t8.jpg";
+  const {
+    nomb_usuario,
+    apell_usuario,
+    ced_usuario,
+    telf_usuario,
+    cel_usuario,
+    email_usuario,
+    contraseña_usuario,
+    conf_contraseña,
+    rol_usuario,
+  } = req.body;
+  const documento = new modelo({
+    imgurl,
+    nomb_usuario,
+    apell_usuario,
+    ced_usuario,
+    telf_usuario,
+    cel_usuario,
+    email_usuario,
+    contraseña_usuario,
+    conf_contraseña,
+    f_creacion_usuario,
+    rol_usuario,
+  });
+  await documento.save();
+
+  res.json({ status: "Guardado" });
+>>>>>>> e4b08384f4a13d4f99a9582fe999dbdd6ec77ab1
 });
 
 // Actualizar datos
