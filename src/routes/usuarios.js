@@ -194,17 +194,17 @@ usuarios.put("/:id/carrito-compra", async (req, res) => {
   res.json({ status: "Actualizado" });
 });
 
-// // Eliminar datos por id
-// usuarios.delete("/:id/carrito-compra", async (req, res) => {
-//   await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
-//   res.json({ status: "Eliminado" });
-// });
-
-usuarios.delete("/carrito-compra", async (req, res) => {
-  await modeloProducto.remove({});
-
+// Eliminar datos por id
+usuarios.delete("/:id/carrito-compra", async (req, res) => {
+  await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
   res.json({ status: "Eliminado" });
 });
+
+// usuarios.delete('/:id/carrito-compra', async (req, res) => {
+// 	await modeloProducto.remove({});
+
+// 	res.json({ status: 'Eliminado' });
+// });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////// ORDEN DE COMPRA DEL USUARIO ////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ usuarios.get("/:id/orden-compra", async (req, res) => {
   res.json(documentos);
 });
 
-usuarios.delete("/orden-compra", async (req, res) => {
+usuarios.delete("/:id/orden-compra", async (req, res) => {
   await modeloOrdenCompra.remove({});
 
   res.json({ status: "Eliminado" });
