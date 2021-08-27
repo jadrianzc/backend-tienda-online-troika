@@ -1,95 +1,94 @@
-const express = require("express");
+const express = require('express');
 const usuarios = express.Router();
-const modelo = require("../models/ModeloUsuarios"); //obtener modelo
-const modeloProducto = require("../models/ModeloProductoCar"); //obtener modelo
-const modeloOrdenCompra = require("../models/ModeloOrdenCompra");
-const nodemailer = require("nodemailer");
+const modelo = require('../models/ModeloUsuarios'); //obtener modelo
+const modeloProducto = require('../models/ModeloProductoCar'); //obtener modelo
+const modeloOrdenCompra = require('../models/ModeloOrdenCompra');
+const nodemailer = require('nodemailer');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////// USUARIO ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Obetener datos
-usuarios.get("/", async (req, res) => {
-  const documentos = await modelo.find();
-  //console.log(documentos);
-  res.json(documentos);
+usuarios.get('/', async (req, res) => {
+	const documentos = await modelo.find();
+	//console.log(documentos);
+	res.json(documentos);
 });
 
-usuarios.get("/:id", async (req, res) => {
-  const documentos = await modelo.findById(req.params.id);
-  //console.log(documentos);
-  res.json(documentos);
+usuarios.get('/:id', async (req, res) => {
+	const documentos = await modelo.findById(req.params.id);
+	//console.log(documentos);
+	res.json(documentos);
 });
 
 // Enviar datos
-usuarios.post("/", async (req, res) => {
-  const f_creacion_usuario = new Date().toLocaleString("es-EC");
-  const imgurl =
-    "https://res.cloudinary.com/troikafoto/image/upload/v1629124545/User/5-08_p4m8t8.jpg";
-  const {
-    nomb_usuario,
-    apell_usuario,
-    ced_usuario,
-    telf_usuario,
-    cel_usuario,
-    email_usuario,
-    contraseña_usuario,
-    conf_contraseña,
-    rol_usuario,
-  } = req.body;
-  const documento = new modelo({
-    imgurl,
-    nomb_usuario,
-    apell_usuario,
-    ced_usuario,
-    telf_usuario,
-    cel_usuario,
-    email_usuario,
-    contraseña_usuario,
-    conf_contraseña,
-    f_creacion_usuario,
-    rol_usuario,
-  });
-  await documento.save();
+usuarios.post('/', async (req, res) => {
+	const f_creacion_usuario = new Date().toLocaleString('es-EC');
+	const imgurl = 'https://res.cloudinary.com/troikafoto/image/upload/v1629124545/User/5-08_p4m8t8.jpg';
+	const {
+		nomb_usuario,
+		apell_usuario,
+		ced_usuario,
+		telf_usuario,
+		cel_usuario,
+		email_usuario,
+		contraseña_usuario,
+		conf_contraseña,
+		rol_usuario,
+	} = req.body;
+	const documento = new modelo({
+		imgurl,
+		nomb_usuario,
+		apell_usuario,
+		ced_usuario,
+		telf_usuario,
+		cel_usuario,
+		email_usuario,
+		contraseña_usuario,
+		conf_contraseña,
+		f_creacion_usuario,
+		rol_usuario,
+	});
+	await documento.save();
 
-  res.json({ status: "Guardado" });
+	res.json({ status: 'Guardado' });
 });
 
 // Actualizar datos
-usuarios.put("/:id", async (req, res) => {
-  const {
-    nomb_usuario,
-    apell_usuario,
-    ced_usuario,
-    telf_usuario,
-    cel_usuario,
-    email_usuario,
-    contraseña_usuario,
-    conf_contraseña,
-    rol_usuario,
-  } = req.body;
-  const newdocumento = {
-    nomb_usuario,
-    apell_usuario,
-    ced_usuario,
-    telf_usuario,
-    cel_usuario,
-    email_usuario,
-    contraseña_usuario,
-    conf_contraseña,
-    rol_usuario,
-  };
-  await modelo.findByIdAndUpdate(req.params.id, newdocumento);
+usuarios.put('/:id', async (req, res) => {
+	const {
+		nomb_usuario,
+		apell_usuario,
+		ced_usuario,
+		telf_usuario,
+		cel_usuario,
+		email_usuario,
+		contraseña_usuario,
+		conf_contraseña,
+		rol_usuario,
+	} = req.body;
+	const newdocumento = {
+		nomb_usuario,
+		apell_usuario,
+		ced_usuario,
+		telf_usuario,
+		cel_usuario,
+		email_usuario,
+		contraseña_usuario,
+		conf_contraseña,
+		rol_usuario,
+	};
+	await modelo.findByIdAndUpdate(req.params.id, newdocumento);
 
-  res.json({ status: "Actualizado" });
+	res.json({ status: 'Actualizado' });
 });
 
 // Eliminar datos
-usuarios.delete("/:id", async (req, res) => {
-  await modelo.findByIdAndRemove(req.params.id);
+usuarios.delete('/:id', async (req, res) => {
+	await modelo.findByIdAndRemove(req.params.id);
 
-  res.json({ status: "Eliminado" });
+	res.json({ status: 'Eliminado' });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,178 +96,178 @@ usuarios.delete("/:id", async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Obtener datos
-usuarios.get("/:id/carrito-compra", async (req, res) => {
-  const documentos = await modeloProducto.find();
-  res.json(documentos);
+usuarios.get('/:id/carrito-compra', async (req, res) => {
+	const documentos = await modeloProducto.find();
+	res.json(documentos);
 });
 
 // Agregar los datos
-usuarios.post("/:id/carrito-compra", async (req, res) => {
-  try {
-    const {
-      imgurl,
-      _id,
-      codigo_producto,
-      nom_producto,
-      descrip_producto,
-      categoria_producto,
-      precio_producto,
-      cantidad_producto,
-      f_registro_producto,
-      modelo_producto,
-      idUserSession,
-      estado,
-    } = req.body;
-    const documento = new modeloProducto({
-      imgurl,
-      idProd: _id,
-      codigo_producto,
-      nom_producto,
-      descrip_producto,
-      categoria_producto,
-      precio_producto,
-      cantidad_producto,
-      f_registro_producto,
-      modelo_producto,
-      idUserSession,
-      estado,
-    });
+usuarios.post('/:id/carrito-compra', async (req, res) => {
+	try {
+		const {
+			imgurl,
+			_id,
+			codigo_producto,
+			nom_producto,
+			descrip_producto,
+			categoria_producto,
+			precio_producto,
+			cantidad_producto,
+			f_registro_producto,
+			modelo_producto,
+			idUserSession,
+			estado,
+		} = req.body;
+		const documento = new modeloProducto({
+			imgurl,
+			idProd: _id,
+			codigo_producto,
+			nom_producto,
+			descrip_producto,
+			categoria_producto,
+			precio_producto,
+			cantidad_producto,
+			f_registro_producto,
+			modelo_producto,
+			idUserSession,
+			estado,
+		});
 
-    await documento.save();
+		await documento.save();
 
-    res.json({ status: "Guardado" });
-  } catch (error) {
-    res.json({ status: "Error" });
-    console.log(error);
-  }
+		res.json({ status: 'Guardado' });
+	} catch (error) {
+		res.json({ status: 'Error' });
+		console.log(error);
+	}
 });
 
 // Actualizar datos
-usuarios.put("/:id/carrito-compra", async (req, res) => {
-  const {
-    imgurl,
-    idProd,
-    codigo_producto,
-    nom_producto,
-    descrip_producto,
-    categoria_producto,
-    precio_producto,
-    cantidad_producto,
-    f_registro_producto,
-    modelo_producto,
-    idUserSession,
-    estado,
-  } = req.body;
+usuarios.put('/:id/carrito-compra', async (req, res) => {
+	const {
+		imgurl,
+		idProd,
+		codigo_producto,
+		nom_producto,
+		descrip_producto,
+		categoria_producto,
+		precio_producto,
+		cantidad_producto,
+		f_registro_producto,
+		modelo_producto,
+		idUserSession,
+		estado,
+	} = req.body;
 
-  const newdocumento = {
-    imgurl,
-    idProd,
-    codigo_producto,
-    nom_producto,
-    descrip_producto,
-    categoria_producto,
-    precio_producto,
-    cantidad_producto,
-    f_registro_producto,
-    modelo_producto,
-    idUserSession,
-    estado,
-  };
+	const newdocumento = {
+		imgurl,
+		idProd,
+		codigo_producto,
+		nom_producto,
+		descrip_producto,
+		categoria_producto,
+		precio_producto,
+		cantidad_producto,
+		f_registro_producto,
+		modelo_producto,
+		idUserSession,
+		estado,
+	};
 
-  await modeloProducto.findByIdAndUpdate(req.body._id, newdocumento);
+	await modeloProducto.findByIdAndUpdate(req.body._id, newdocumento);
 
-  res.json({ status: "Actualizado" });
+	res.json({ status: 'Actualizado' });
 });
 
 // Eliminar datos por id
-usuarios.delete("/:id/carrito-compra", async (req, res) => {
-  await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
-  res.json({ status: "Eliminado" });
-});
-
-// usuarios.delete('/:id/carrito-compra', async (req, res) => {
-// 	await modeloProducto.remove({});
-
-// 	res.json({ status: 'Eliminado' });
+// usuarios.delete("/:id/carrito-compra", async (req, res) => {
+//   await modeloProducto.findByIdAndRemove(req.body.idProductoUnique);
+//   res.json({ status: "Eliminado" });
 // });
+
+usuarios.delete('/:id/carrito-compra', async (req, res) => {
+	await modeloProducto.remove({});
+
+	res.json({ status: 'Eliminado' });
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////// ORDEN DE COMPRA DEL USUARIO ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Obtener datos
-usuarios.get("/:id/orden-compra", async (req, res) => {
-  const documentos = await modeloOrdenCompra.find();
-  res.json(documentos);
+usuarios.get('/:id/orden-compra', async (req, res) => {
+	const documentos = await modeloOrdenCompra.find();
+	res.json(documentos);
 });
 
-usuarios.delete("/:id/orden-compra", async (req, res) => {
-  await modeloOrdenCompra.remove({});
+usuarios.delete('/:id/orden-compra', async (req, res) => {
+	await modeloOrdenCompra.remove({});
 
-  res.json({ status: "Eliminado" });
+	res.json({ status: 'Eliminado' });
 });
 
 // Guarda las ordenes de compras y envía correo
-usuarios.post("/:id/orden-compra", async (req, res) => {
-  try {
-    let total = 0;
-    // const f_creacion_ordenCompra = new Date().toLocaleString('es-EC');
-    const date = new Date();
+usuarios.post('/:id/orden-compra', async (req, res) => {
+	try {
+		let total = 0;
+		// const f_creacion_ordenCompra = new Date().toLocaleString('es-EC');
+		const date = new Date();
 
-    let f_creacion_ordenCompra =
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes() +
-      ":" +
-      date.getSeconds();
-    const {
-      idUserSession,
-      ced_usuario,
-      email_usuario,
-      nomb_usuario,
-      apell_usuario,
-      direcc_usuario,
-      apart_usuario,
-      codPost_usuario,
-      ciudad_usuario,
-      pais_usuario,
-      cel_usuario,
-      carrito_usuario,
-    } = req.body;
+		let f_creacion_ordenCompra =
+			date.getFullYear() +
+			'-' +
+			(date.getMonth() + 1) +
+			'-' +
+			date.getDate() +
+			' ' +
+			date.getHours() +
+			':' +
+			date.getMinutes() +
+			':' +
+			date.getSeconds();
+		const {
+			idUserSession,
+			ced_usuario,
+			email_usuario,
+			nomb_usuario,
+			apell_usuario,
+			direcc_usuario,
+			apart_usuario,
+			codPost_usuario,
+			ciudad_usuario,
+			pais_usuario,
+			cel_usuario,
+			carrito_usuario,
+		} = req.body;
 
-    await carrito_usuario.map((data) => {
-      const op = parseFloat(data.cantidad_producto * data.precio_producto);
-      total = (total + op).toFixed(2);
-    });
+		await carrito_usuario.map((data) => {
+			const op = parseFloat(data.cantidad_producto * data.precio_producto);
+			total = (total + op).toFixed(2);
+		});
 
-    const documento = new modeloOrdenCompra({
-      idUserSession,
-      ced_usuario,
-      email_usuario,
-      nomb_usuario,
-      apell_usuario,
-      direcc_usuario,
-      apart_usuario,
-      codPost_usuario,
-      ciudad_usuario,
-      pais_usuario,
-      cel_usuario,
-      carrito_usuario,
-      total_carrito: total,
-      estado: "pendiente",
-      f_creacion_ordenCompra,
-    });
+		const documento = new modeloOrdenCompra({
+			idUserSession,
+			ced_usuario,
+			email_usuario,
+			nomb_usuario,
+			apell_usuario,
+			direcc_usuario,
+			apart_usuario,
+			codPost_usuario,
+			ciudad_usuario,
+			pais_usuario,
+			cel_usuario,
+			carrito_usuario,
+			total_carrito: total,
+			estado: 'pendiente',
+			f_creacion_ordenCompra,
+		});
 
-    await documento.save();
+		await documento.save();
 
-    // Envío de correo
-    const contenmtHTML = `
+		// Envío de correo
+		const contenmtHTML = `
             <h1 style="color: #000">Solicitud pago de orden de compra</h1>
             <img src="https://res.cloudinary.com/troikafoto/image/upload/v1629437870/Productos/logo3_au24nl.png" alt="Logo Troika" style="width: 350px; height: 88px" />
             <p style="color: #000">TROIKA CÍA LTDA. Ha recibido una orden de compra a pagar.</p>
@@ -293,43 +292,43 @@ usuarios.post("/:id/orden-compra", async (req, res) => {
 						<th style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">Precio</th>
 					</tr>
 					${carrito_usuario
-            .map(
-              (data) =>
-                `<tr>
+						.map(
+							(data) =>
+								`<tr>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.descrip_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.cantidad_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">$ ${data.precio_producto}</td>
 							</tr>`
-            )
-            .join("")}
+						)
+						.join('')}
 				</tbody>
 			</table>
 
 			<h3>Total a pagar: $ ${total}</h3>
         `;
 
-    const smtpTransport = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.PASS_EMAIL,
-      },
-    });
+		const smtpTransport = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				user: process.env.EMAIL_USER,
+				pass: process.env.PASS_EMAIL,
+			},
+		});
 
-    const info = await smtpTransport.sendMail({
-      from: "TROIKA CÍA LTDA <grupotroika.tiendaonline@gmail.com>",
-      to: email_usuario,
-      subject: "Solicitud pago de orden de compra",
-      html: contenmtHTML,
-    });
+		const info = await smtpTransport.sendMail({
+			from: 'TROIKA CÍA LTDA <grupotroika.tiendaonline@gmail.com>',
+			to: email_usuario,
+			subject: 'Solicitud pago de orden de compra',
+			html: contenmtHTML,
+		});
 
-    console.log("Mensaje Enviado", info.messageId);
+		console.log('Mensaje Enviado', info.messageId);
 
-    res.json({ status: "Guardado" });
-  } catch (error) {
-    res.json({ status: "Error" });
-    console.log(error);
-  }
+		res.json({ status: 'Guardado' });
+	} catch (error) {
+		res.json({ status: 'Error' });
+		console.log(error);
+	}
 });
 
 module.exports = usuarios;
