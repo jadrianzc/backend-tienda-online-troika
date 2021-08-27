@@ -159,7 +159,7 @@ usuarios.put("/:id/carrito-compra", async (req, res) => {
     idUserSession,
     estado,
   } = req.body;
-  console.log("PUT CARRITO", req.body);
+
   const newdocumento = {
     imgurl,
     idProd,
@@ -212,6 +212,7 @@ usuarios.delete("/:id/orden-compra", async (req, res) => {
 usuarios.post("/:id/orden-compra", async (req, res) => {
   try {
     let total = 0;
+    // const f_creacion_ordenCompra = new Date().toLocaleString('es-EC');
     const date = new Date();
 
     let f_creacion_ordenCompra =
@@ -226,7 +227,6 @@ usuarios.post("/:id/orden-compra", async (req, res) => {
       date.getMinutes() +
       ":" +
       date.getSeconds();
-    console.log(f_creacion_ordenCompra);
     const {
       idUserSession,
       ced_usuario,
@@ -244,7 +244,7 @@ usuarios.post("/:id/orden-compra", async (req, res) => {
 
     await carrito_usuario.map((data) => {
       const op = parseFloat(data.cantidad_producto * data.precio_producto);
-      total = total + op;
+      total = (total + op).toFixed(2);
     });
 
     const documento = new modeloOrdenCompra({
@@ -298,30 +298,21 @@ usuarios.post("/:id/orden-compra", async (req, res) => {
                 `<tr>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.descrip_producto}</td>
 								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.cantidad_producto}</td>
-								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">${data.precio_producto}</td>
+								<td style="border: 1px solid black; border-collapse: collapse; padding: 5px; text-align: center">$ ${data.precio_producto}</td>
 							</tr>`
             )
             .join("")}
 				</tbody>
 			</table>
 
-			<h3>Total a pagar: ${total}</h3>
+			<h3>Total a pagar: $ ${total}</h3>
         `;
 
     const smtpTransport = nodemailer.createTransport({
       service: "Gmail",
-      // name: 'www.grupotroika.com',
-      // host: 'mail.grupotroika.com',
-      // port: 587,
-      secure: false,
       auth: {
-        // user: 'orden@grupotroika.com',
-        // pass: 'Sankey01!',
-        user: "grupotroika.tiendaonline@gmail.com",
-        pass: "troika123",
-      },
-      tls: {
-        rejectUnauthorized: false,
+        user: process.env.EMAIL_USER,
+        pass: process.env.PASS_EMAIL,
       },
     });
 
